@@ -1,3 +1,5 @@
+import { differenceInCalendarDays } from "date-fns"; // libray to process date
+
 const taskInputButton = document.getElementById('showInput');
 const addTaskButton = document.getElementById('createTask');
 let cardDeck = [];
@@ -52,9 +54,16 @@ function cardDisplay(card) {
     document.querySelector('body').appendChild(cardContainer);
 }
 
+function daysRemaining(date) {
+    const nowDate = new Date();
+    return differenceInCalendarDays(date, nowDate);
+    
+}
+
 function createCard() {
     const card = getInput();
-    
+    const daysRemain = daysRemaining(card.dueDate);
+
     clearInput(card);
     cardDeck.push(card);
     cardDisplay(card);
