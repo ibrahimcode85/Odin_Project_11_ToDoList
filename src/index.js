@@ -20,19 +20,21 @@ function closeInputDialog() {
 }
 
 function getInput() {
-    const task = document.querySelector('input#taskName').value;
-    const project = document.querySelector('input#projectName').value;
+    const task = document.querySelector('input#task').value;
+    const project = document.querySelector('input#project').value;
     const personInCharge = document.querySelector('input#personInCharge').value;
     const dueDate = document.querySelector('input#dueDate').value;
 
     return {task, project, personInCharge, dueDate};
 }
 
-function clearInput() {
-    document.querySelector('input#taskName').value = '';
-    document.querySelector('input#projectName').value = '';
-    document.querySelector('input#personInCharge').value = '';
-    document.querySelector('input#dueDate').value = '';
+function clearInput(card) {
+
+    for (let key in card) {
+        let cardID = `input#${key}`;
+        document.querySelector(cardID).value = '';
+    }
+    
 }
 
 function cardDisplay(card) {
@@ -53,7 +55,7 @@ function cardDisplay(card) {
 function createCard() {
     const card = getInput();
     
-    clearInput();
+    clearInput(card);
     cardDeck.push(card);
     cardDisplay(card);
 }
