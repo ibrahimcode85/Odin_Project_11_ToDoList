@@ -35,10 +35,25 @@ function clearInput() {
     document.querySelector('input#dueDate').value = '';
 }
 
+function cardDisplay(card) {
+    const cardContainer = document.createElement('div');
+    cardContainer.setAttribute('class', 'card-container');
+
+    for (let key in card) {
+        const div = document.createElement('div');
+        div.setAttribute('class', `card-${key}`);
+        div.textContent = card[key];
+
+        cardContainer.appendChild(div);
+    }
+ 
+    document.querySelector('body').appendChild(cardContainer);
+}
+
 function createCard() {
     const card = getInput();
-    console.log(card);
+    
     clearInput();
-
     cardDeck.push(card);
+    cardDisplay(card);
 }
