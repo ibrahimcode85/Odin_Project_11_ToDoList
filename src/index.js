@@ -3,13 +3,38 @@ import './style.css';
 
 const taskInputButton = document.getElementById('showInput');
 const addTaskButton = document.getElementById('createTask');
+const clearButton = document.getElementById('clearDashboard');
 let cardDeck = [];
 
+// dummy data for testing purposes
+const obj1 = {  task:'task1',
+                project: 'project1',
+                personInCharge: 'pic1',
+                dueDate: '2024-12-30',
+                status:'planned'
+            }
+
+const obj2 = {  task:'task2',
+                project: 'project2',
+                personInCharge: 'pic2',
+                dueDate: '2024-12-30',
+                status:'inProgress'
+            }
+
+const obj3 = {  task:'task3',
+                project: 'project3',
+                personInCharge: 'pic3',
+                dueDate: '2024-12-30',
+                status:'completed'
+}    
+
+cardDeck.push(obj1, obj2, obj3)
 
 // add event listener
 taskInputButton.addEventListener('click', showInputDialog);
 addTaskButton.addEventListener('click', createCard);
 addTaskButton.addEventListener('click', closeInputDialog);
+clearButton.addEventListener('click', clearDashboard);
 
 // functions
 function showInputDialog() {
@@ -46,6 +71,8 @@ function cardDisplay(card) {
     cardContainer.setAttribute('class', 'card-container');
 
     for (let key in card) {
+        if (key === 'status') {continue;}
+
         const div = document.createElement('div');
         div.setAttribute('class', `card-${key}`);
         div.textContent = card[key];
@@ -53,8 +80,38 @@ function cardDisplay(card) {
         cardContainer.appendChild(div);
     }
     
-    // TODO: make it dynamic based on the status of the project.
-    document.querySelector('.dashboard-child#planned').appendChild(cardContainer);
+    return cardContainer;
+}
+
+function dashboardDisplay(cardDeck) {
+    
+    for (let cardNum in cardDeck) {
+
+        let cardElement =  cardDisplay(cardDeck[cardNum]);
+        let dashboardID = `.dashboard-child#${cardDeck[cardNum].status}`
+        
+        const dashboard = document.querySelector(dashboardID);
+        dashboard.appendChild(cardElement);
+
+    }
+
+}
+
+function clearDashboard() {
+    const dashboardStatus = ['planned', 'inProgress', 'completed'];
+    const titleMap = {planned : 'Planned', inProgress : 'In Progress', completed : 'Completed'};
+
+    for (let statusNum in dashboardStatus) {
+        let dashboardID = `.dashboard-child#${dashboardStatus[statusNum]}`
+        const dashboardElement = document.querySelector(dashboardID)
+        dashboardElement.replaceChildren()
+
+        // add back title element
+        const div = document.createElement('div');
+        div.setAttribute('class', `dashboard-title`);
+        div.textContent = titleMap[dashboardStatus[statusNum]];
+        dashboardElement.appendChild(div);
+    }
 }
 
 function daysRemaining(date) {
@@ -69,5 +126,5 @@ function createCard() {
 
     clearInput(card);
     cardDeck.push(card);
-    cardDisplay(card);
+    dashboardDisplay(cardDeck);
 }
