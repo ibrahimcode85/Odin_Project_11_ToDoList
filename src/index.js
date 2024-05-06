@@ -23,18 +23,19 @@ function closeInputDialog() {
 }
 
 function getInput() {
-    const task = document.querySelector('input#task').value;
-    const project = document.querySelector('input#project').value;
-    const personInCharge = document.querySelector('input#personInCharge').value;
-    const dueDate = document.querySelector('input#dueDate').value;
+    const task = document.querySelector('#input-task').value;
+    const project = document.querySelector('#input-project').value;
+    const personInCharge = document.querySelector('#input-personInCharge').value;
+    const dueDate = document.querySelector('#input-dueDate').value;
+    const status = document.querySelector('#input-status').value;
 
-    return {task, project, personInCharge, dueDate};
+    return {task, project, personInCharge, dueDate, status};
 }
 
 function clearInput(card) {
 
     for (let key in card) {
-        let cardID = `input#${key}`;
+        let cardID = `#input-${key}`;
         document.querySelector(cardID).value = '';
     }
     
@@ -53,7 +54,7 @@ function cardDisplay(card) {
     }
     
     // TODO: make it dynamic based on the status of the project.
-    document.querySelector('#dashboard-planned').appendChild(cardContainer);
+    document.querySelector('.dashboard-child#planned').appendChild(cardContainer);
 }
 
 function daysRemaining(date) {

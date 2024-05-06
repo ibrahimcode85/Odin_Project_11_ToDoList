@@ -9,38 +9,46 @@
     <div class="header">
         <button id="showInput">Add Task</button>
         <dialog>
-            <label for="task">Task Name:</label>
-            <input type="text" id="task" name="taskName" required>
+            <label for="input-task">Task Name:</label>
+            <input type="text" id="input-task" name="taskName" required>
               
-            <label for="project">Project Name:</label>
-            <input type="text" id="project" name="projectName" required>
+            <label for="input-project">Project Name:</label>
+            <input type="text" id="input-project" name="projectName" required>
             
-            <label for="personInCharge">Person In-Charge:</label>
-            <input type="text" id="personInCharge" name="personInCharge" required>
+            <label for="input-personInCharge">Person In-Charge:</label>
+            <input type="text" id="input-personInCharge" name="personInCharge" required>
   
-            <label for="dueDate">Due Date:</label>
-            <input type="date" id="dueDate" name="dueDate" required>
+            <label for="input-dueDate">Due Date:</label>
+            <input type="date" id="input-dueDate" name="dueDate" required>
+
+            <label for="input-status">Select Status:</label>
+            <select id="input-status">
+                <option value="planned" selected>Planned</option>
+                <option value="inProgress">In Progress</option>
+                <option value="completed">Completed</option>
+            </select>
               
             <button id="createTask">Add</button>
       </dialog>
     </div>
 
     <div class="dashboard">
-        <div class="dashboard-child" id="dashboard-planned">
+        <div class="dashboard-child" id="planned">
             <div class="dashboard-title">Planned</div>
             <div class="card-container">
                 <div class="card-task">Task1</div>
                 <div class="card-project">Project1</div>
                 <div class="card-personInCharge">PIC1</div>
                 <div class="dueDate">2024-05-06</div>
+                <div class="status">Planned</div>
             </div>
         </div>
 
-        <div class="dashboard-child" id="dashboard-inProgress">
+        <div class="dashboard-child" id="inProgress">
             <div class="dashboard-title">In Progress</div>
         </div>
 
-        <div class="dashboard-child" id="dashboard-completed">
+        <div class="dashboard-child" id="completed">
             <div class="dashboard-title">Completed</div>
         </div>
         
