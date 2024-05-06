@@ -1,4 +1,5 @@
 import { differenceInCalendarDays } from "date-fns"; // libray to process date
+import './style.css';
 
 const taskInputButton = document.getElementById('showInput');
 const addTaskButton = document.getElementById('createTask');
@@ -50,8 +51,9 @@ function cardDisplay(card) {
 
         cardContainer.appendChild(div);
     }
- 
-    document.querySelector('body').appendChild(cardContainer);
+    
+    // TODO: make it dynamic based on the status of the project.
+    document.querySelector('#dashboard-planned').appendChild(cardContainer);
 }
 
 function daysRemaining(date) {

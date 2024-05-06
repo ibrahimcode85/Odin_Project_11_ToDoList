@@ -6,21 +6,45 @@
     <title>My ToDo List</title>
 </head>
 <body>
-    <dialog>
-          <label for="taskName">Task Name:</label>
-          <input type="text" id="task" name="taskName" required>
+    <div class="header">
+        <button id="showInput">Add Task</button>
+        <dialog>
+            <label for="task">Task Name:</label>
+            <input type="text" id="task" name="taskName" required>
+              
+            <label for="project">Project Name:</label>
+            <input type="text" id="project" name="projectName" required>
             
-          <label for="projectName">Project Name:</label>
-          <input type="text" id="project" name="projectName" required>
-          
-          <label for="personInCharge">Person In-Charge:</label>
-          <input type="text" id="personInCharge" name="personInCharge" required>
+            <label for="personInCharge">Person In-Charge:</label>
+            <input type="text" id="personInCharge" name="personInCharge" required>
+  
+            <label for="dueDate">Due Date:</label>
+            <input type="date" id="dueDate" name="dueDate" required>
+              
+            <button id="createTask">Add</button>
+      </dialog>
+    </div>
 
-          <label for="dueDate">Due Date:</label>
-          <input type="date" id="dueDate" name="dueDate" required>
-            
-          <button id="createTask">Add</button>
-    </dialog>
-    <button id="showInput">Add Task</button>
+    <div class="dashboard">
+        <div class="dashboard-child" id="dashboard-planned">
+            <div class="dashboard-title">Planned</div>
+            <div class="card-container">
+                <div class="card-task">Task1</div>
+                <div class="card-project">Project1</div>
+                <div class="card-personInCharge">PIC1</div>
+                <div class="dueDate">2024-05-06</div>
+            </div>
+        </div>
+
+        <div class="dashboard-child" id="dashboard-inProgress">
+            <div class="dashboard-title">In Progress</div>
+        </div>
+
+        <div class="dashboard-child" id="dashboard-completed">
+            <div class="dashboard-title">Completed</div>
+        </div>
+        
+    </div>
+    
 </body>
 </html>

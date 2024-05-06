@@ -1,0 +1,33 @@
+body {
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    height: 100px;
+    margin: 5px;
+    border: 1px solid grey;
+}
+
+.dashboard {
+    height: 100vh;
+    margin: 5px;
+    border: 1px solid grey;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.dashboard-child {
+    width: 33%;
+    margin: 5px;
+    border: 1px solid grey;
+}
+
+.card-container {
+    width: 95%;
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid grey;
+}
