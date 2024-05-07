@@ -7,7 +7,8 @@ const clearButton = document.getElementById('clearDashboard');
 
 let cardDeck = [];
 
-// dummy data for testing purposes
+// sample cards to guide user
+// TODO sample card to be updated with more 'believable' value
 const obj1 = {  task:'task1',
                 project: 'project1',
                 personInCharge: 'pic1',
@@ -31,13 +32,16 @@ const obj3 = {  task:'task3',
 
 cardDeck.push(obj1, obj2, obj3)
 
+// initialize dashboard 
+dashboardDisplay(cardDeck);
+
 // add event listener
 taskInputButton.addEventListener('click', showInputDialog);
 addTaskButton.addEventListener('click', createCard);
 addTaskButton.addEventListener('click', closeInputDialog);
 clearButton.addEventListener('click', clearDashboard);
 
-// functions
+// functions (TODO to be grouped in module later)
 function showInputDialog() {
     const inputDialog = document.querySelector('dialog');
     inputDialog.showModal();
