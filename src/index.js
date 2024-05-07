@@ -97,6 +97,7 @@ function cardDisplay(card) {
     // add down rank button
     const downRankButton = cardButton('downRank');
     downRankButton.textContent = 'Down Rank';
+    downRankButton.addEventListener('click', downRank);
     cardContainer.appendChild(downRankButton);
     
     
@@ -154,6 +155,7 @@ function createCard() {
 
     clearInput(card);
     cardDeck.push(card);
+    clearDashboard();
     dashboardDisplay(cardDeck);
 }
 
@@ -198,7 +200,7 @@ function getCardID(card){
 
 function deleteCardFromDeck(deleteID){
     
-    const cardIndex = findDeckIndex(deleteID);
+    const cardIndex = findDeckIndex(cardDeck, deleteID);
     cardDeck.splice(cardIndex,1);
 
 }
@@ -215,11 +217,55 @@ function findDeckIndex(cardDeck, id){
 }
 
 function upRank(e) {
-    const parentNode = e.target.parentNode;
-    const prevNode = parentNode.previousElementSibling;
+    const currentNode = e.target.parentNode;
+    const prevNode = currentNode.previousElementSibling;
 
     if (prevNode.className === 'dashboard-title') {return;}
 
     const prevCardID = getCardID(prevNode);
+    const prevCardDeckIndex = findDeckIndex(cardDeck, prevCardID);
 
+    const currentCardID = getCardID(currentNode);
+    const currentCardDeckIndex = findDeckIndex(cardDeck, currentCardID);
+
+    // get the current object from deck
+    const currentCard = cardDeck[currentCardDeckIndex];
+    
+    // delete the current object from deck
+    deleteCardFromDeck(currentCardID);
+
+    // add the current card object based on the location of the previous card index
+    cardDeck.splice(prevCardDeckIndex,0,currentCard);
+
+    // regenerate the dashboard based on the updated deck
+    clearDashboard()
+    dashboardDisplay(cardDeck);
+
+
+}
+
+function downRank(e) {
+    const currentNode = e.target.parentNode;
+    const nextNode = currentNode.nextElementSibling;
+
+    if (nextNode === null) {return;}
+
+    const nextCardID = getCardID(nextNode);
+    const nextCardDeckIndex = findDeckIndex(cardDeck, nextCardID);
+
+    const currentCardID = getCardID(currentNode);
+    const currentCardDeckIndex = findDeckIndex(cardDeck, currentCardID);
+
+    // get the current object from deck
+    const currentCard = cardDeck[currentCardDeckIndex];
+    
+    // delete the current object from deck
+    deleteCardFromDeck(currentCardID);
+
+    // add the current card object based on the location of the previous card index
+    cardDeck.splice(nextCardDeckIndex,0,currentCard);
+
+    // regenerate the dashboard based on the updated deck
+    clearDashboard()
+    dashboardDisplay(cardDeck);
 }
