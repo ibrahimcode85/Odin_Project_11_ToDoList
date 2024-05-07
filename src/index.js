@@ -198,14 +198,18 @@ function getCardID(card){
 
 function deleteCardFromDeck(deleteID){
     
+    const cardIndex = findDeckIndex(deleteID);
+    cardDeck.splice(cardIndex,1);
+
+}
+
+function findDeckIndex(cardDeck, id){
+
     for (let cardIndex in cardDeck){
         let card = cardDeck[cardIndex];
         const cardID = getCardID(card);
 
-        if (cardID === deleteID) {
-            cardDeck.splice(cardIndex,1);
-        }
-
+        if (cardID === id) {return cardIndex}
     }
 
 }
