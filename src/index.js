@@ -4,6 +4,7 @@ import './style.css';
 const taskInputButton = document.getElementById('showInput');
 const addTaskButton = document.getElementById('createTask');
 const clearButton = document.getElementById('clearDashboard');
+
 let cardDeck = [];
 
 // dummy data for testing purposes
@@ -70,8 +71,9 @@ function cardDisplay(card) {
     const cardContainer = document.createElement('div');
     cardContainer.setAttribute('class', 'card-container');
 
+    // add tasks information
     for (let key in card) {
-        if (key === 'status') {continue;}
+        if (key === 'status') {continue;} // TODO: no need to display status info? what if want to update/edit status?
 
         const div = document.createElement('div');
         div.setAttribute('class', `card-${key}`);
@@ -79,6 +81,14 @@ function cardDisplay(card) {
 
         cardContainer.appendChild(div);
     }
+
+    // add delete button
+    const deleteButton = document.createElement('button');
+    deleteButton.setAttribute('id', 'deleteCard');
+    deleteButton.textContent = 'Delete';
+    cardContainer.appendChild(deleteButton);
+
+    deleteButton.addEventListener('click', deleteCard);
     
     return cardContainer;
 }
@@ -127,4 +137,18 @@ function createCard() {
     clearInput(card);
     cardDeck.push(card);
     dashboardDisplay(cardDeck);
+}
+
+function deleteCard(e) {
+    const card = e.target.parentNode;
+    const cardItem = ['task', 'project', 'personInCharge', 'dueDate'];
+    let cardID = '';
+
+    // create unique id based on card input
+    for (let itemNum in cardItem) {
+        const input = card.querySelector(`.card-${cardItem[itemNum]}`).textContent;
+        cardID = cardID + '_' + input;
+    }
+
+    console.log(cardID);
 }
