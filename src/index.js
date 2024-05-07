@@ -83,14 +83,32 @@ function cardDisplay(card) {
     }
 
     // add delete button
-    const deleteButton = document.createElement('button');
-    deleteButton.setAttribute('id', 'deleteCard');
+    const deleteButton = cardButton('delete');
     deleteButton.textContent = 'Delete';
-    cardContainer.appendChild(deleteButton);
-
     deleteButton.addEventListener('click', deleteCard);
+    cardContainer.appendChild(deleteButton);
+    
+    // add up rank button
+    const upRankButton = cardButton('upRank');
+    upRankButton.textContent = 'Up Rank';
+    upRankButton.addEventListener('click', upRank);
+    cardContainer.appendChild(upRankButton);
+
+    // add down rank button
+    const downRankButton = cardButton('downRank');
+    downRankButton.textContent = 'Down Rank';
+    cardContainer.appendChild(downRankButton);
+    
     
     return cardContainer;
+}
+
+function cardButton(buttonName){
+    const button = document.createElement('button');
+    button.setAttribute('id', `${buttonName}Card`);
+    button.textContent = buttonName;
+
+    return button;
 }
 
 function dashboardDisplay(cardDeck) {
@@ -141,16 +159,9 @@ function createCard() {
 
 function deleteCard(e) {
     const card = e.target.parentNode;
-    const cardItem = ['task', 'project', 'personInCharge', 'dueDate'];
-    let deleteID = '';
-
-    // create unique id based on card input
-    for (let itemIndex in cardItem) {
-        const input = card.querySelector(`.card-${cardItem[itemIndex]}`).textContent;
-        deleteID = deleteID + '_' + input;
-    }
-
-    // update deck for deletion
+    
+    // get ID to delete and delete from deck
+    let deleteID = getCardID(card);
     deleteCardFromDeck(deleteID);
 
     // regenerate updated deck
@@ -158,20 +169,35 @@ function deleteCard(e) {
     dashboardDisplay(cardDeck);
 }
 
-function deleteCardFromDeck(deleteID){
-    
-    function getCardID(card){
-        const cardItem = ['task', 'project', 'personInCharge', 'dueDate'];
-        let cardID = '';
+function getCardID(card){
+    const cardItem = ['task', 'project', 'personInCharge', 'dueDate'];
+    let cardObject = card;
+    let cardID = '';
 
-        for (let itemIndex in cardItem){
-            let input = card[cardItem[itemIndex]];
-            cardID = cardID + '_' + input;
+    // parameter is either a node or an array.
+    // if its not array, convert node info to array first.
+    let checkNode = card.nodeType // return undefined if it is an array
+
+    if (checkNode !== undefined) {
+        cardObject = {};
+
+        for (let itemIndex in cardItem) {
+            const input = card.querySelector(`.card-${cardItem[itemIndex]}`).textContent;
+            cardObject[cardItem[itemIndex]] = input;
         }
 
-        return cardID;
+    } 
+
+    for (let itemIndex in cardItem){
+        let input = cardObject[cardItem[itemIndex]];
+        cardID = cardID + '_' + input;
     }
-     
+
+    return cardID;
+}
+
+function deleteCardFromDeck(deleteID){
+    
     for (let cardIndex in cardDeck){
         let card = cardDeck[cardIndex];
         const cardID = getCardID(card);
@@ -181,5 +207,15 @@ function deleteCardFromDeck(deleteID){
         }
 
     }
+
+}
+
+function upRank(e) {
+    const parentNode = e.target.parentNode;
+    const prevNode = parentNode.previousElementSibling;
+
+    if (prevNode.className === 'dashboard-title') {return;}
+
+    const prevCardID = getCardID(prevNode);
 
 }
