@@ -95,10 +95,10 @@ function cardDisplay(card) {
 
 function dashboardDisplay(cardDeck) {
     
-    for (let cardNum in cardDeck) {
+    for (let cardIndex in cardDeck) {
 
-        let cardElement =  cardDisplay(cardDeck[cardNum]);
-        let dashboardID = `.dashboard-child#${cardDeck[cardNum].status}`
+        let cardElement =  cardDisplay(cardDeck[cardIndex]);
+        let dashboardID = `.dashboard-child#${cardDeck[cardIndex].status}`
         
         const dashboard = document.querySelector(dashboardID);
         dashboard.appendChild(cardElement);
@@ -111,15 +111,15 @@ function clearDashboard() {
     const dashboardStatus = ['planned', 'inProgress', 'completed'];
     const titleMap = {planned : 'Planned', inProgress : 'In Progress', completed : 'Completed'};
 
-    for (let statusNum in dashboardStatus) {
-        let dashboardID = `.dashboard-child#${dashboardStatus[statusNum]}`
+    for (let statusIndex in dashboardStatus) {
+        let dashboardID = `.dashboard-child#${dashboardStatus[statusIndex]}`
         const dashboardElement = document.querySelector(dashboardID)
         dashboardElement.replaceChildren()
 
         // add back title element
         const div = document.createElement('div');
         div.setAttribute('class', `dashboard-title`);
-        div.textContent = titleMap[dashboardStatus[statusNum]];
+        div.textContent = titleMap[dashboardStatus[statusIndex]];
         dashboardElement.appendChild(div);
     }
 }
@@ -142,13 +142,44 @@ function createCard() {
 function deleteCard(e) {
     const card = e.target.parentNode;
     const cardItem = ['task', 'project', 'personInCharge', 'dueDate'];
-    let cardID = '';
+    let deleteID = '';
 
     // create unique id based on card input
-    for (let itemNum in cardItem) {
-        const input = card.querySelector(`.card-${cardItem[itemNum]}`).textContent;
-        cardID = cardID + '_' + input;
+    for (let itemIndex in cardItem) {
+        const input = card.querySelector(`.card-${cardItem[itemIndex]}`).textContent;
+        deleteID = deleteID + '_' + input;
     }
 
-    console.log(cardID);
+    // update deck for deletion
+    deleteCardFromDeck(deleteID);
+
+    // regenerate updated deck
+    clearDashboard();
+    dashboardDisplay(cardDeck);
+}
+
+function deleteCardFromDeck(deleteID){
+    
+    function getCardID(card){
+        const cardItem = ['task', 'project', 'personInCharge', 'dueDate'];
+        let cardID = '';
+
+        for (let itemIndex in cardItem){
+            let input = card[cardItem[itemIndex]];
+            cardID = cardID + '_' + input;
+        }
+
+        return cardID;
+    }
+     
+    for (let cardIndex in cardDeck){
+        let card = cardDeck[cardIndex];
+        const cardID = getCardID(card);
+
+        if (cardID === deleteID) {
+            cardDeck.splice(cardIndex,1);
+        }
+
+    }
+
 }
