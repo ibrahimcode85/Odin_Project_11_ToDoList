@@ -1,9 +1,10 @@
-import { differenceInCalendarDays } from "date-fns"; // libray to process date
+import { differenceInCalendarDays, isExists } from "date-fns"; // libray to process date
 import './style.css';
 
 const taskInputButton = document.getElementById('showInput');
 const addTaskButton = document.getElementById('createTask');
 const clearButton = document.getElementById('clearDashboard');
+const summaryButton = document.getElementById('input-summary');
 
 let cardDeck = [];
 
@@ -40,6 +41,7 @@ taskInputButton.addEventListener('click', showInputDialog);
 addTaskButton.addEventListener('click', createCard);
 addTaskButton.addEventListener('click', closeInputDialog);
 clearButton.addEventListener('click', clearDashboard);
+summaryButton.addEventListener('change',getSummaryValue);
 
 // functions (TODO to be grouped in module later)
 function showInputDialog() {
@@ -272,4 +274,44 @@ function downRank(e) {
     // regenerate the dashboard based on the updated deck
     clearDashboard()
     dashboardDisplay(cardDeck);
+}
+
+function getSummaryValue(e) {
+    const summaryValue = e.target.value;
+    let valueList = [];
+
+    for (let cardIndex in cardDeck){
+
+        const currentValue = cardDeck[cardIndex][summaryValue];
+        let valueExists = valueList.includes(currentValue); 
+
+        if (valueExists === false){
+            valueList.push(currentValue);
+        }
+
+    }
+
+    // display the selection for user to choose
+    summaryValueDisplay(valueList);
+
+}
+
+function summaryValueDisplay(valueList) {
+    
+    const summaryValueSelection = document.getElementById('summary-value');
+
+    // clear previous display first
+    summaryValueSelection.replaceChildren()
+
+    // update value with current summary selection
+    for (let valueIndex in valueList){
+        let value = valueList[valueIndex];
+
+        const option = document.createElement('option');
+        option.setAttribute('value', value);
+        option.textContent = value;
+
+        summaryValueSelection.appendChild(option);
+    }
+
 }
