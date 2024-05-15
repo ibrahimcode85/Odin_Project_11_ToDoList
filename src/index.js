@@ -161,7 +161,12 @@ function createCard() {
     const card = getInput();
     const daysRemain = daysRemaining(card.dueDate);
 
+    // reinitialized user input
     clearInput(card);
+    document.getElementById('input-summary').value = 'all';
+    document.getElementById('summary-value').value = '';
+
+
     cardDeck.push(card);
     clearDashboard();
     dashboardDisplay(cardDeck);
