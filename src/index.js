@@ -5,6 +5,7 @@ const taskInputButton = document.getElementById('showInput');
 const addTaskButton = document.getElementById('createTask');
 const clearButton = document.getElementById('clearDashboard');
 const summaryButton = document.getElementById('input-summary');
+const updateDashboardButton = document.getElementById('updateDashboard');
 
 let cardDeck = [];
 
@@ -42,6 +43,7 @@ addTaskButton.addEventListener('click', createCard);
 addTaskButton.addEventListener('click', closeInputDialog);
 clearButton.addEventListener('click', clearDashboard);
 summaryButton.addEventListener('change',getSummaryValue);
+updateDashboardButton.addEventListener('click',getSummarizedDashboard);
 
 // functions (TODO to be grouped in module later)
 function showInputDialog() {
@@ -315,3 +317,31 @@ function summaryValueDisplay(valueList) {
     }
 
 }
+
+function getSummarizedDashboard() {
+
+    const summaryElement = document.getElementById('input-summary').value;
+    const summaryValue = document.getElementById('summary-value').value;
+    let summarizedDeck = cardDeck;
+
+    // update summarizedDeck if applicable
+    if (summaryElement !== 'all') {
+
+        // clear the deck first before updating
+        summarizedDeck = [];
+
+        for (let cardIndex in cardDeck) {
+            let card = cardDeck[cardIndex];
+    
+            if (card[summaryElement] === summaryValue) {
+                summarizedDeck.push(card);
+            }
+        }
+    }
+    
+    // display dashboard
+    clearDashboard();
+    dashboardDisplay(summarizedDeck);
+    
+}
+
