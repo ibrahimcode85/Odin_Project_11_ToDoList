@@ -9,32 +9,12 @@ const updateDashboardButton = document.getElementById('updateDashboard');
 
 let cardDeck = [];
 
-// sample cards to guide user
-// TODO sample card to be updated with more 'believable' value
-const obj1 = {  task:'task1',
-                project: 'project1',
-                personInCharge: 'pic1',
-                dueDate: '2024-12-30',
-                status:'planned'
-            }
 
-const obj2 = {  task:'task2',
-                project: 'project2',
-                personInCharge: 'pic2',
-                dueDate: '2024-12-30',
-                status:'inProgress'
-            }
+// initialize dashboard with previous values (if any)
+if (localStorage.length > 0) {
+    cardDeck = downloadFromStorage();
+}
 
-const obj3 = {  task:'task3',
-                project: 'project3',
-                personInCharge: 'pic3',
-                dueDate: '2024-12-30',
-                status:'completed'
-}    
-
-cardDeck.push(obj1, obj2, obj3)
-
-// initialize dashboard 
 dashboardDisplay(cardDeck);
 
 // add event listener
@@ -170,6 +150,7 @@ function createCard() {
     cardDeck.push(card);
     clearDashboard();
     dashboardDisplay(cardDeck);
+    uploadToStorage(cardDeck);
 }
 
 function deleteCard(e) {
@@ -182,6 +163,7 @@ function deleteCard(e) {
     // regenerate updated deck
     clearDashboard();
     dashboardDisplay(cardDeck);
+    uploadToStorage(cardDeck);
 }
 
 function getCardID(card){
@@ -253,6 +235,7 @@ function upRank(e) {
     // regenerate the dashboard based on the updated deck
     clearDashboard()
     dashboardDisplay(cardDeck);
+    uploadToStorage(cardDeck);
 
 
 }
@@ -281,6 +264,7 @@ function downRank(e) {
     // regenerate the dashboard based on the updated deck
     clearDashboard()
     dashboardDisplay(cardDeck);
+    uploadToStorage(cardDeck);
 }
 
 function getSummaryValue(e) {
@@ -350,3 +334,35 @@ function getSummarizedDashboard() {
     
 }
 
+function uploadToStorage(cardDeck) {
+
+    localStorage.clear();
+
+    for (let cardIndex in cardDeck) {
+
+        const cardNum = parseInt(cardIndex) + 1;
+        const keyStorage = `card${cardNum}`;
+        const jsonValue = JSON.stringify(cardDeck[cardIndex]);
+        
+        localStorage.setItem(keyStorage,jsonValue)
+    }
+   
+}
+
+function downloadFromStorage() {
+
+    const maxCard = localStorage.length;
+    let cardDeck = [];
+
+    for (let cardIndex = 1; cardIndex < maxCard+1; cardIndex++){
+
+        const keyStorage = `card${cardIndex}`;
+        const cardObject = JSON.parse(localStorage[keyStorage]);
+
+        cardDeck.push(cardObject);
+
+    }
+
+    return cardDeck;
+
+}
