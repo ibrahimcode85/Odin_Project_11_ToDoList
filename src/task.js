@@ -37,6 +37,10 @@ function createCard(cardDeck) {
     document.getElementById('summary-value').value = '';
     cardDeck.push(card);
 
+    clearDashboard();
+    dashboardDisplay(cardDeck);
+    uploadToStorage(cardDeck);
+
     return cardDeck;
 }
 

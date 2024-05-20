@@ -93,6 +93,8 @@ function clearDashboard() {
         div.textContent = titleMap[dashboardStatus[statusIndex]];
         dashboardElement.appendChild(div);
     }
+
+    localStorage.clear();
 }
 
 function summaryValueDisplay(valueList) {
