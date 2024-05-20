@@ -1,9 +1,7 @@
 // This module will manage event listeners.
 
-// events.js
-import { showInputDialog, closeInputDialog, dashboardDisplay, clearDashboard, summaryValueDisplay } from './ui';
+import { showInputDialog, closeInputDialog, clearDashboard} from './ui';
 import { createCard, getSummaryValue, getSummarizedDashboard } from './task';
-import { uploadToStorage, downloadFromStorage } from './storage.js';
 
 export function initializeEventListeners(cardDeck) {
     document.getElementById('showInput').addEventListener('click', showInputDialog);
