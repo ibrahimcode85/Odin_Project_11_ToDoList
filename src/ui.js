@@ -13,10 +13,14 @@ function closeInputDialog() {
     inputDialog.close();
 }
 
-function cardButton(buttonName){
+function cardButton(buttonId, buttonName, buttonFunction, cardDeck){
     const button = document.createElement('button');
-    button.setAttribute('id', `${buttonName}Card`);
+    button.setAttribute('id', `${buttonId}Card`);
     button.textContent = buttonName;
+
+    button.addEventListener('click', (e) => {
+        buttonFunction(e,cardDeck);
+    });
 
     return button;
 }
@@ -37,27 +41,15 @@ function cardDisplay(card, cardDeck) {
     }
 
     // add delete button
-    const deleteButton = cardButton('delete');
-    deleteButton.textContent = 'Delete';
-    deleteButton.addEventListener('click', (e) => {
-        deleteCard(e,cardDeck);
-    });
+    const deleteButton = cardButton('delete', 'Delete', deleteCard, cardDeck);
     cardContainer.appendChild(deleteButton);
     
     // add up rank button
-    const upRankButton = cardButton('upRank');
-    upRankButton.textContent = 'Up Rank';
-    upRankButton.addEventListener('click', (e) => {
-        upRank(e,cardDeck);
-    });
+    const upRankButton = cardButton('upRank', 'Up Rank', upRank, cardDeck);
     cardContainer.appendChild(upRankButton);
 
     // add down rank button
-    const downRankButton = cardButton('downRank');
-    downRankButton.textContent = 'Down Rank';
-    downRankButton.addEventListener('click', (e) => {
-        downRank(e,cardDeck);
-    });
+    const downRankButton = cardButton('downRank', 'Down Rank', downRank, cardDeck);
     cardContainer.appendChild(downRankButton);
     
     
