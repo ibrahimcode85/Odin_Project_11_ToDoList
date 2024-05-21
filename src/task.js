@@ -133,6 +133,27 @@ function downRank(e, cardDeck) {
     return cardDeck;
 }
 
+function changeStatus(e, cardDeck) {
+    const statusChangeMap = {planned : 'inProgress', inProgress : 'completed', completed : 'planned'};
+    const currentNode = e.target.parentNode;
+    const cardID = getCardID(currentNode);
+    const deckIndex = findDeckIndex(cardDeck, cardID);
+    const card = cardDeck[deckIndex];
+
+    // change status
+    card.status = statusChangeMap[card.status];
+    
+    // delete and then reupdate deck
+    cardDeck = deleteCardFromDeck(cardDeck, cardID);
+    cardDeck.push(card)
+
+    // regenerate the dashboard based on the updated deck
+    clearDashboard()
+    dashboardDisplay(cardDeck);
+    uploadToStorage(cardDeck);
+
+}
+
 function getSummaryValue(e, cardDeck) {
     const summaryValue = e.target.value;
     let valueList = [];
@@ -209,6 +230,6 @@ function getCardID(card){
 export {
     getInput, clearInput, daysRemaining,
     createCard, deleteCard, deleteCardFromDeck,
-    findDeckIndex, upRank, downRank, getSummaryValue,
+    findDeckIndex, upRank, downRank, getSummaryValue, changeStatus,
     getSummarizedDashboard
 }

@@ -1,7 +1,7 @@
 // This module will handle all the UI-related functions, such as showing dialogs, updating the dashboard display, 
 // and managing user inputs.
 
-import {deleteCard, upRank, downRank} from './task'
+import {deleteCard, upRank, downRank, changeStatus} from './task'
 
 function showInputDialog() {
     const inputDialog = document.querySelector('dialog');
@@ -51,7 +51,10 @@ function cardDisplay(card, cardDeck) {
     // add down rank button
     const downRankButton = cardButton('downRank', 'Down Rank', downRank, cardDeck);
     cardContainer.appendChild(downRankButton);
-    
+
+    // add change status
+    const changeStatusButton = cardButton('changeStatus', 'Change Status', changeStatus, cardDeck);
+    cardContainer.appendChild(changeStatusButton);
     
     return cardContainer;
 }
