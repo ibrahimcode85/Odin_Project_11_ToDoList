@@ -11,7 +11,9 @@ export function initializeEventListeners(cardDeck) {
         closeInputDialog();
     });
 
-    document.getElementById('clearDashboard').addEventListener('click', clearDashboard);
+    document.getElementById('clearDashboard').addEventListener('click', () => {
+        cardDeck = clearDashboard(cardDeck);
+    });
 
     document.getElementById('input-summary').addEventListener('change', (e) => getSummaryValue(e, cardDeck));
 

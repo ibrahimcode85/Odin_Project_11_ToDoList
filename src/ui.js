@@ -73,7 +73,7 @@ function dashboardDisplay(cardDeck) {
 
 }
 
-function clearDashboard() {
+function clearDashboard(cardDeck) {
     const dashboardStatus = ['planned', 'inProgress', 'completed'];
     const titleMap = {planned : 'Planned', inProgress : 'In Progress', completed : 'Completed'};
 
@@ -89,7 +89,10 @@ function clearDashboard() {
         dashboardElement.appendChild(div);
     }
 
+    cardDeck = [];
     localStorage.clear();
+
+    return cardDeck;
 }
 
 function summaryValueDisplay(valueList) {
