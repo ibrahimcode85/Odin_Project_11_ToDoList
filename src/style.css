@@ -1,29 +1,85 @@
 body {
-    margin: 5px;
+    margin: 0px;
     display: flex;
-    flex-direction: column;
 }
 
 .header {
-    height: 100px;
-    margin: 5px;
-    border: 1px solid grey;
+    width: 15vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(11,118,160);
 }
 
-.dashboard {
-    height: 100vh;
-    margin: 5px;
-    border: 1px solid grey;
+.logo {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    margin: 5px 5px 95px 5px;
+
+}
+
+.logo .img-logo{
+    height: 90%;
+}
+
+.logo .text-logo {
+    font-size: 2.5rem;
+    font-weight: bolder;
+    color: rgb(233,215,135);
+    margin: 10px 0px 0px 5px;
+}
+
+.control-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 5px 0px 5px;
+}
+
+.control-item {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    cursor:pointer;
+}
+
+.control-text {
+    font-size: 1.5rem;
+    color: rgb(233,215,135);
+    margin-left: 10px;
+}
+
+.control-item-child {
+    display: flex;
+    margin: 5px 0px 0px 50px;
+}
+
+.control-item-child label {
+    display: flex;
+    justify-content: end;
+    color: rgb(233,215,135);
+    width: 50px;
+    margin-right: 5px;
+}
+
+
+.dashboard {
+    width: 85vw;
+    height: 100vh;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: rgb(202,238,251);
 
 }
 
 .dashboard-child {
-    width: 33%;
+    width: 30%;
     margin: 5px;
     border: 1px solid grey;
+    background-color: rgb(255,255,255,0.7)
 }
+
+
 
 .card-container {
     width: 95%;

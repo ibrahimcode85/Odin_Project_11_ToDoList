@@ -7,8 +7,42 @@
 </head>
 <body>
     <div class="header">
-        <button id="showInput">Add Task</button>
-        <button id="clearDashboard">Clear Dashboard</button>
+        <div class="logo">
+            <img src="../assets/tags.png" class="img-logo">
+            <span class="text-logo">assignIT</span>
+        </div>
+
+        <div class="control-wrapper">
+            <div class="control-item" id="showInput">
+                <img src="../assets/add-icon.svg" class="control-icon">
+                <span class="control-text">Add Task Card</span>
+            </div>
+
+            <div class="control-item" id="clearDashboard">
+                <img src="../assets/clear-icon.svg" class="control-icon">
+                <span class="control-text">Clear All Cards</span>
+            </div>
+
+            <div class="control-item" id="updateDashboard">
+                <img src="../assets/filter-icon.svg" class="control-icon">
+                <span class="control-text">Filter Cards</span>
+            </div>
+
+            <div class="control-item-child">
+                <label for="input-summary">by :</label>
+                <select id="input-summary">
+                    <option value="all">Show All</option>
+                    <option value="project">Project Name</option>
+                    <option value="personInCharge">Person In Charge</option>
+                </select>
+            </div>
+
+            <div class="control-item-child">
+                <label for="summary-value">value :</label>
+                <select id="summary-value"></select>
+            </div>
+        </div>
+
         <dialog>
             <label for="input-task">Task Name:</label>
             <input type="text" id="input-task" name="taskName" required>
@@ -32,18 +66,6 @@
             <button id="createTask">Add</button>
       </dialog>
 
-      <label for="input-summary">Summarized by:</label>
-      <select id="input-summary">
-        <option value="all">Show All</option>
-        <option value="project">Project Name</option>
-        <option value="personInCharge">Person In Charge</option>
-      </select>
-
-      <label for="summary-value">Value:</label>
-      <select id="summary-value">
-      </select>
-      <button id="updateDashboard">Update Dashboard</button>        
-        
     </div>
 
     <div class="dashboard">
