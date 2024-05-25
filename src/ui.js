@@ -1,122 +1,134 @@
-// This module will handle all the UI-related functions, such as showing dialogs, updating the dashboard display, 
+// This module will handle all the UI-related functions, such as showing dialogs, updating the dashboard display,
 // and managing user inputs.
 
-import {deleteCard, upRank, downRank, changeStatus} from './task'
+import { deleteCard, upRank, downRank, changeStatus } from "./task";
 
 function showInputDialog() {
-    const inputDialog = document.querySelector('dialog');
-    inputDialog.showModal();
+  const inputDialog = document.querySelector("dialog");
+  inputDialog.showModal();
 }
 
 function closeInputDialog() {
-    const inputDialog = document.querySelector('dialog');
-    inputDialog.close();
+  const inputDialog = document.querySelector("dialog");
+  inputDialog.close();
 }
 
-function cardButton(buttonId, buttonName, buttonFunction, cardDeck){
-    const button = document.createElement('button');
-    button.setAttribute('id', `${buttonId}Card`);
-    button.textContent = buttonName;
+function cardButton(buttonId, buttonName, buttonFunction, cardDeck) {
+  const button = document.createElement("button");
+  button.setAttribute("id", `${buttonId}Card`);
+  button.textContent = buttonName;
 
-    button.addEventListener('click', (e) => {
-        buttonFunction(e,cardDeck);
-    });
+  button.addEventListener("click", (e) => {
+    buttonFunction(e, cardDeck);
+  });
 
-    return button;
+  return button;
 }
 
 function cardDisplay(card, cardDeck) {
-    const cardContainer = document.createElement('div');
-    cardContainer.setAttribute('class', 'card-container');
+  const cardContainer = document.createElement("div");
+  cardContainer.setAttribute("class", "card-container");
 
-    // add tasks information
-    for (let key in card) {
-        if (key === 'status') {continue;} // TODO: no need to display status info? what if want to update/edit status?
+  // add tasks information
+  for (let key in card) {
+    if (key === "status") {
+      continue;
+    } // TODO: no need to display status info? what if want to update/edit status?
 
-        const div = document.createElement('div');
-        div.setAttribute('class', `card-${key}`);
-        div.textContent = card[key];
+    const div = document.createElement("div");
+    div.setAttribute("class", `card-${key}`);
+    div.textContent = card[key];
 
-        cardContainer.appendChild(div);
-    }
+    cardContainer.appendChild(div);
+  }
 
-    // add delete button
-    const deleteButton = cardButton('delete', 'Delete', deleteCard, cardDeck);
-    cardContainer.appendChild(deleteButton);
-    
-    // add up rank button
-    const upRankButton = cardButton('upRank', 'Up Rank', upRank, cardDeck);
-    cardContainer.appendChild(upRankButton);
+  // add delete button
+  const deleteButton = cardButton("delete", "Delete", deleteCard, cardDeck);
+  cardContainer.appendChild(deleteButton);
 
-    // add down rank button
-    const downRankButton = cardButton('downRank', 'Down Rank', downRank, cardDeck);
-    cardContainer.appendChild(downRankButton);
+  // add up rank button
+  const upRankButton = cardButton("upRank", "Up Rank", upRank, cardDeck);
+  cardContainer.appendChild(upRankButton);
 
-    // add change status
-    const changeStatusButton = cardButton('changeStatus', 'Change Status', changeStatus, cardDeck);
-    cardContainer.appendChild(changeStatusButton);
-    
-    return cardContainer;
+  // add down rank button
+  const downRankButton = cardButton(
+    "downRank",
+    "Down Rank",
+    downRank,
+    cardDeck
+  );
+  cardContainer.appendChild(downRankButton);
+
+  // add change status
+  const changeStatusButton = cardButton(
+    "changeStatus",
+    "Change Status",
+    changeStatus,
+    cardDeck
+  );
+  cardContainer.appendChild(changeStatusButton);
+
+  return cardContainer;
 }
 
 function dashboardDisplay(cardDeck) {
-    
-    for (let cardIndex in cardDeck) {
+  for (let cardIndex in cardDeck) {
+    let cardElement = cardDisplay(cardDeck[cardIndex], cardDeck);
+    let dashboardID = `.dashboard-child#${cardDeck[cardIndex].status}`;
 
-        let cardElement =  cardDisplay(cardDeck[cardIndex], cardDeck);
-        let dashboardID = `.dashboard-child#${cardDeck[cardIndex].status}`
-        
-        const dashboard = document.querySelector(dashboardID);
-        dashboard.appendChild(cardElement);
-
-    }
-
+    const dashboard = document.querySelector(dashboardID);
+    dashboard.appendChild(cardElement);
+  }
 }
 
 function clearDashboard(cardDeck) {
-    const dashboardStatus = ['planned', 'inProgress', 'completed'];
-    const titleMap = {planned : 'Planned', inProgress : 'In Progress', completed : 'Completed'};
+  const dashboardStatus = ["planned", "inProgress", "completed"];
+  const titleMap = {
+    planned: "Planned",
+    inProgress: "In Progress",
+    completed: "Completed",
+  };
 
-    for (let statusIndex in dashboardStatus) {
-        let dashboardID = `.dashboard-child#${dashboardStatus[statusIndex]}`
-        const dashboardElement = document.querySelector(dashboardID)
-        dashboardElement.replaceChildren()
+  for (let statusIndex in dashboardStatus) {
+    let dashboardID = `.dashboard-child#${dashboardStatus[statusIndex]}`;
+    const dashboardElement = document.querySelector(dashboardID);
+    dashboardElement.replaceChildren();
 
-        // add back title element
-        const div = document.createElement('div');
-        div.setAttribute('class', `dashboard-title`);
-        div.textContent = titleMap[dashboardStatus[statusIndex]];
-        dashboardElement.appendChild(div);
-    }
+    // add back title element
+    const div = document.createElement("div");
+    div.setAttribute("class", `dashboard-title`);
+    div.textContent = titleMap[dashboardStatus[statusIndex]];
+    dashboardElement.appendChild(div);
+  }
 
-    cardDeck = [];
-    localStorage.clear();
+  cardDeck = [];
+  localStorage.clear();
 
-    return cardDeck;
+  return cardDeck;
 }
 
 function summaryValueDisplay(valueList) {
-    
-    const summaryValueSelection = document.getElementById('summary-value');
+  const summaryValueSelection = document.getElementById("summary-value");
 
-    // clear previous display first
-    summaryValueSelection.replaceChildren()
+  // clear previous display first
+  summaryValueSelection.replaceChildren();
 
-    // update value with current summary selection
-    for (let valueIndex in valueList){
-        let value = valueList[valueIndex];
+  // update value with current summary selection
+  for (let valueIndex in valueList) {
+    let value = valueList[valueIndex];
 
-        const option = document.createElement('option');
-        option.setAttribute('value', value);
-        option.textContent = value;
+    const option = document.createElement("option");
+    option.setAttribute("value", value);
+    option.textContent = value;
 
-        summaryValueSelection.appendChild(option);
-    }
-
+    summaryValueSelection.appendChild(option);
+  }
 }
 
-export { 
-    showInputDialog, closeInputDialog, 
-    dashboardDisplay, clearDashboard,
-    summaryValueDisplay
-}
+export {
+  showInputDialog,
+  closeInputDialog,
+  dashboardDisplay,
+  clearDashboard,
+  summaryValueDisplay,
+};
