@@ -2,8 +2,14 @@
 // Formatted using prettier.
 
 import { differenceInCalendarDays } from "date-fns";
-import { dashboardDisplay, clearDashboard, summaryValueDisplay } from "./ui";
+import {
+  dashboardDisplay,
+  clearDashboard,
+  summaryValueDisplay,
+  closeInputDialog,
+} from "./ui";
 import { uploadToStorage } from "./storage.js";
+import { inputMissingValidation } from "./validation.js";
 
 function getInput() {
   const task = document.querySelector("#input-task").value;
@@ -28,6 +34,14 @@ function daysRemaining(date) {
 }
 
 function createCard(cardDeck) {
+  // run validation routine
+  const noMissinigValue = inputMissingValidation(cardDeck)["notMissingBool"];
+  cardDeck = inputMissingValidation(cardDeck)["cardDeck"];
+
+  if (noMissinigValue == false) {
+    return cardDeck;
+  }
+
   const card = getInput();
   const daysRemain = daysRemaining(card.dueDate);
   clearInput(card);
@@ -38,6 +52,7 @@ function createCard(cardDeck) {
   clearDashboard();
   dashboardDisplay(cardDeck);
   uploadToStorage(cardDeck);
+  closeInputDialog();
 
   return cardDeck;
 }

@@ -50,31 +50,44 @@
       </div>
 
       <dialog>
-        <label for="input-task">Task Name:</label>
-        <input type="text" id="input-task" name="taskName" required />
+        <div class="input-container">
+          <label for="input-task">Task Name:</label>
+          <input type="text" id="input-task" name="taskName" required />
+          <div class="error-message" id="input-task"></div>
+        </div>
+        <div class="input-container">
+          <label for="input-project">Project Name:</label>
+          <input type="text" id="input-project" name="projectName" required />
+          <div class="error-message" id="input-project"></div>
+        </div>
+        <div class="input-container">
+          <label for="input-personInCharge">Person In-Charge:</label>
+          <input
+            type="text"
+            id="input-personInCharge"
+            name="personInCharge"
+            required
+          />
+          <div class="error-message" id="input-personInCharge"></div>
+        </div>
+        <div class="input-container">
+          <label for="input-dueDate">Due Date:</label>
+          <input type="date" id="input-dueDate" name="dueDate" required />
+          <div class="error-message" id="input-dueDate"></div>
+        </div>
+        <div class="input-container">
+          <label for="input-status">Select Status:</label>
+          <select id="input-status">
+            <option value="planned" selected>Planned</option>
+            <option value="inProgress">In Progress</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
 
-        <label for="input-project">Project Name:</label>
-        <input type="text" id="input-project" name="projectName" required />
-
-        <label for="input-personInCharge">Person In-Charge:</label>
-        <input
-          type="text"
-          id="input-personInCharge"
-          name="personInCharge"
-          required
-        />
-
-        <label for="input-dueDate">Due Date:</label>
-        <input type="date" id="input-dueDate" name="dueDate" required />
-
-        <label for="input-status">Select Status:</label>
-        <select id="input-status">
-          <option value="planned" selected>Planned</option>
-          <option value="inProgress">In Progress</option>
-          <option value="completed">Completed</option>
-        </select>
-
-        <button id="createTask">Add</button>
+        <div class="control-item" id="createTask">
+          <img src="../assets/add-icon.svg" class="control-icon" />
+          <span class="control-text">Add Task Card</span>
+        </div>
       </dialog>
     </div>
 
