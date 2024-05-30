@@ -53,13 +53,13 @@
         <div class="input-container">
           <label for="input-task">Task Name:</label>
           <input type="text" id="input-task" name="taskName" required />
+          <div class="error-message" id="input-task"></div>
         </div>
-
         <div class="input-container">
           <label for="input-project">Project Name:</label>
           <input type="text" id="input-project" name="projectName" required />
+          <div class="error-message" id="input-project"></div>
         </div>
-
         <div class="input-container">
           <label for="input-personInCharge">Person In-Charge:</label>
           <input
@@ -68,13 +68,13 @@
             name="personInCharge"
             required
           />
+          <div class="error-message" id="input-personInCharge"></div>
         </div>
-
         <div class="input-container">
           <label for="input-dueDate">Due Date:</label>
           <input type="date" id="input-dueDate" name="dueDate" required />
+          <div class="error-message" id="input-dueDate"></div>
         </div>
-
         <div class="input-container">
           <label for="input-status">Select Status:</label>
           <select id="input-status">
@@ -88,8 +88,6 @@
           <img src="../assets/add-icon.svg" class="control-icon" />
           <span class="control-text">Add Task Card</span>
         </div>
-
-        <!-- <button id="createTask">Add</button> -->
       </dialog>
     </div>
 

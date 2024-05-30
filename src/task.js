@@ -4,6 +4,7 @@
 import { differenceInCalendarDays } from "date-fns";
 import { dashboardDisplay, clearDashboard, summaryValueDisplay } from "./ui";
 import { uploadToStorage } from "./storage.js";
+import { inputMissingValidation } from "./validation.js";
 
 function getInput() {
   const task = document.querySelector("#input-task").value;
@@ -28,6 +29,12 @@ function daysRemaining(date) {
 }
 
 function createCard(cardDeck) {
+  // check validation
+  const noMissinigValue = inputMissingValidation();
+  if (noMissinigValue == false) {
+    return;
+  }
+
   const card = getInput();
   const daysRemain = daysRemaining(card.dueDate);
   clearInput(card);
