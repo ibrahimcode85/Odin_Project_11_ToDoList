@@ -1,6 +1,6 @@
 // This module will manage event listeners.
 
-import { showInputDialog, closeInputDialog, clearDashboard } from "./ui";
+import { showInputDialog, clearDashboard } from "./ui";
 import { createCard, getSummaryValue, getSummarizedDashboard } from "./task";
 import { inputMissingValidation } from "./validation";
 
@@ -11,7 +11,6 @@ export function initializeEventListeners(cardDeck) {
 
   document.getElementById("createTask").addEventListener("click", () => {
     cardDeck = createCard(cardDeck);
-    closeInputDialog();
   });
 
   document.getElementById("clearDashboard").addEventListener("click", () => {
@@ -30,9 +29,9 @@ export function initializeEventListeners(cardDeck) {
 
   // add validation handler when load dialog box
   // it will first focus on first field
-  document
-    .querySelector("#input-task")
-    .addEventListener("focus", inputMissingValidation);
+  document.querySelector("#input-task").addEventListener("focus", () => {
+    cardDeck = inputMissingValidation(cardDeck)["cardDeck"];
+  });
 
   // add validation handler when inputting field
   const inputTypeArray = [
@@ -46,7 +45,7 @@ export function initializeEventListeners(cardDeck) {
     const input = document.querySelector(`#${inputTypeArray[typeIndex]}`);
 
     input.addEventListener("change", () => {
-      inputMissingValidation();
+      cardDeck = inputMissingValidation(cardDeck)["cardDeck"];
     });
   }
 }

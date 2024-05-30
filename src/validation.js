@@ -1,6 +1,6 @@
 // This module will handle user input validation.
 
-function inputMissingValidation() {
+function inputMissingValidation(cardDeck) {
   // initialize validity bool
   let inputNotMissing = true; // true = no missing input.
 
@@ -31,7 +31,7 @@ function inputMissingValidation() {
     }
   }
 
-  return !!inputNotMissing;
+  return { notMissingBool: !!inputNotMissing, cardDeck: cardDeck };
 }
 
 export { inputMissingValidation };
