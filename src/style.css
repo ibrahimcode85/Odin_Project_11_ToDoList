@@ -64,7 +64,8 @@ dialog[open] #input-task-error,
 
 .header {
   width: 15vw;
-  height: 100vh;
+  /* height: 100vh; */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: rgb(11, 118, 160);
@@ -127,7 +128,7 @@ dialog[open] #input-task-error,
 
 .dashboard {
   width: 85vw;
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   justify-content: space-evenly;
   background-color: rgb(202, 238, 251);
